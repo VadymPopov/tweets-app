@@ -20,7 +20,6 @@ const handleRejected = (state, action) =>{
     extraReducers: builder => builder.addCase(fetchUsers.pending,handlePending ).addCase(fetchUsers.fulfilled,(state, action)=>{
         state.isLoading = false;
         state.error = null;
-        // state.items = action.payload;
         state.items.push(...action.payload);
     }).addCase(fetchUsers.rejected, handleRejected).addCase(fetchAllUsers.pending,handlePending ).addCase(fetchAllUsers.fulfilled,(state, action)=>{
         state.isLoading = false;
@@ -33,7 +32,6 @@ const handleRejected = (state, action) =>{
         const index = state.items.findIndex(
             user => user.id === action.payload.id
           );
-          console.log(action.payload)
           state.items.splice(index, 1, action.payload);
     }).addCase(updateUser.rejected, handleRejected)});
 

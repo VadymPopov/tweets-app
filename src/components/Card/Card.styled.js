@@ -1,4 +1,6 @@
 import styled from "styled-components";
+// import top from '../../images/card-top.png';
+
 
 export const Item = styled.li`
   position: relative;
@@ -16,12 +18,8 @@ export const Logo = styled.img`
   left: 20px;
 `;
 
-export const Img = styled.img`
- /* margin: 0 auto; */
-`;
-
 export const Text = styled.p`
-  font-family: 'Montserrat';
+  font-family: Montserrat, sans-serif;
   color:  #EBD8FF;
   font-weight: 500;
   font-size: 20px;
@@ -31,21 +29,34 @@ export const Text = styled.p`
 `;
 
 export const Top = styled.div`
-  padding: 28px 36px 18px 36px;
+  position: relative;
+  background-image: url(${props=>props.img});
+  background-size: 308px 168px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 380px;
+  height: 214px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; //vertical alignment because of flex direction column
+  align-items: center;
+
+  ::after {
+  content: '';
+  position: absolute;
+  top: 214px;
+  display: block;
+  background-color: #EBD8FF;
+  width: 100%;
+  height: 8px;
+  box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.06), inset 0px -1.71846px 3.43693px #AE7BE3, inset 0px 3.43693px 2.5777px #FBF8FF;
+  }
  
 `;
 
 export const Bottom = styled.div`
   padding: 62px 36px 36px 36px;
 `;
-
-export const Center = styled.div`
-  background-color: #EBD8FF;
-  height: 8px;
-  box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.06), inset 0px -1.71846px 3.43693px #AE7BE3, inset 0px 3.43693px 2.5777px #FBF8FF;
- 
-`;
-
 
 export const Avatar = styled.img`
   border-radius: 50%;
@@ -67,5 +78,6 @@ box-shadow: 0px 4.39163px 4.39163px rgba(0, 0, 0, 0.06), inset 0px -2.19582px 4.
 display: flex;
 align-items: center;
 justify-content: center;
+z-index: 100;
 `;
 

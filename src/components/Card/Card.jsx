@@ -1,4 +1,4 @@
-import { Bottom, Img, Item, Logo, Text, Top, Center, Avatar, AvatarWrapper } from "./Card.styled";
+import { Bottom,  Item, Logo, Text, Top, Avatar, AvatarWrapper } from "./Card.styled";
 import Button from "../Button";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
@@ -11,22 +11,37 @@ const Card = ({ id, avatar, tweets, followers, isFollowed}) => {
   const dispatch = useDispatch();
   let followersNum = followers;
 
-  const handleBtnClick =()=> {
+  const handleBtnClick = () => {
     isFollowed ? followersNum-- : followersNum++;
-    dispatch(updateUser({followersNum, id, isFollowed:!isFollowed}))
+    const usersFromLocal = JSON.parse(localStorage.getItem('users'));
+    const usersFromLocalFollowed = JSON.parse(localStorage.getItem('usersFollowed'));
+    let newUsers = [];
+    
+    if(usersFromLocal.length !== usersFromLocalFollowed.length) {
+      usersFromLocalFollowed.push(...usersFromLocal);
+    }
+
+   if(usersFromLocalFollowed) {
+    newUsers = usersFromLocalFollowed.map(user=>user.id === id ? {...user, followed: !user.followed} : user);
+   } else {
+    newUsers = usersFromLocal.map(user=>user.id === id ? {...user, followed: !user.followed} : user);
+   }
+
+    // dispatch(updateUser({followersNum, id, isFollowed:!isFollowed}))
+  
+   
+   localStorage.setItem('usersFollowed', JSON.stringify(newUsers));
+    dispatch(updateUser({followersNum, id}))
   };
 
     return (
         <Item key={id}>
-        <Top>
-          <Logo  src={logo} alt="logo"  />
-          <Img src={top} alt="card-top" width={308} height={168} />
+        <Top img={top}>
+          <Logo  src={logo} alt="logo"/>
           <AvatarWrapper>
             <Avatar src={avatar} alt="avatar" width={62} height={62} />
           </AvatarWrapper>
         </Top>
-        <Center>
-        </Center>
         <Bottom>
           <Text>{tweets} Tweets</Text>
           <Text>{followers.toLocaleString("en-US")} Followers</Text>
