@@ -1,4 +1,4 @@
-import  Navigation  from '../Navigation';
+import  Navigation  from '../ScrollUp';
 import { Header } from './AppBar.styled';
 import { NavLink } from 'react-router-dom';
 import { Icon } from './AppBar.styled';

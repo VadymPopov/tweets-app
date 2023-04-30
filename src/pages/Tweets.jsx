@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch} from "react-redux";
 import CardList from '../components/CardList';
-import Button from "../components/Button";
+import LoadButton from "../components/LoadButton";
 import { Link } from "./Tweets.styled";
 import { fetchUsers } from "../redux/operations";
 import Dropdown from "../components/Dropdown";
+import ScrollUp from "components/ScrollUp";
 import { fetchFirstUsers,fetchAllUsers } from "../redux/operations";
+
+
 
 const Tweets = () => {
   const dispatch = useDispatch();
@@ -21,11 +24,12 @@ const Tweets = () => {
 
   let page = pages;
 
-  const handleBtnClick = ()=>{
+  const handleBtnClick = ()=> {
     page++;
     setPages(page)
     
-    dispatch(fetchUsers(page));
+    
+    dispatch(fetchUsers(page)); 
   };
 
     return (
@@ -33,10 +37,10 @@ const Tweets = () => {
         <Link to='/'>&#8249; Go back</Link>
         <Dropdown/>
         <CardList/>
-        <Button type={"submit"} disabled={pages > 2} onClick={handleBtnClick}>Load More</Button>
+        <LoadButton type={"submit"} disabled={pages > 2} onClick={handleBtnClick}>Load More</LoadButton>
+        <ScrollUp/>
         </>
     );
   };
 
-export default Tweets; 
-
+  export default Tweets; 
