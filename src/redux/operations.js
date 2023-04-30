@@ -5,13 +5,21 @@ axios.defaults.baseURL ="https://6447180f7bb84f5a3e382cc9.mockapi.io";
 
 export const fetchAllUsers = createAsyncThunk("users/fetchAll", async (_, thunkAPI) => {
     try {
-        const response = await axios.get("/users?page=1&limit=4");
+        const response = await axios.get("/users");
         return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
     }
 });
 
+export const fetchFirstUsers = createAsyncThunk("users/fetchFirst", async (_, thunkAPI) => {
+    try {
+        const response = await axios.get("/users?page=1&limit=4");
+        return response.data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
+    }
+});
 
 export const updateUser = createAsyncThunk("users/updateUser", async ({followersNum, id, isFollowed}, thunkAPI) => {
     try {

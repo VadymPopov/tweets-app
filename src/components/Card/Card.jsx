@@ -6,33 +6,23 @@ import { updateUser } from "../../redux/operations";
 import logo from '../../images/logo.svg';
 import top from '../../images/card-top.png';
 
-
-const Card = ({ id, avatar, tweets, followers, isFollowed}) => {
+  const Card = ({ id, avatar, tweets, followers}) => {
   const dispatch = useDispatch();
+
   let followersNum = followers;
+  const users = localStorage.getItem('users');
 
   const handleBtnClick = () => {
-    isFollowed ? followersNum-- : followersNum++;
-    const usersFromLocal = JSON.parse(localStorage.getItem('users'));
-    const usersFromLocalFollowed = JSON.parse(localStorage.getItem('usersFollowed'));
-    let newUsers = [];
-    
-    if(usersFromLocal.length !== usersFromLocalFollowed.length) {
-      usersFromLocalFollowed.push(...usersFromLocal);
-    }
+   const mappedUsers = JSON.parse(users).map(user=>user.id === id ? {...user, followed: !user.followed} : user);
+   localStorage.setItem('users', JSON.stringify(mappedUsers));
 
-   if(usersFromLocalFollowed) {
-    newUsers = usersFromLocalFollowed.map(user=>user.id === id ? {...user, followed: !user.followed} : user);
-   } else {
-    newUsers = usersFromLocal.map(user=>user.id === id ? {...user, followed: !user.followed} : user);
-   }
-
-    // dispatch(updateUser({followersNum, id, isFollowed:!isFollowed}))
+    const user = mappedUsers.find(user => user.id === id);
+    !user.followed ? followersNum-- : followersNum++;
   
-   
-   localStorage.setItem('usersFollowed', JSON.stringify(newUsers));
     dispatch(updateUser({followersNum, id}))
   };
+
+const isFollowed = users ? JSON.parse(users).find(user => user.id === id).followed : null;
 
     return (
         <Item key={id}>
@@ -45,7 +35,7 @@ const Card = ({ id, avatar, tweets, followers, isFollowed}) => {
         <Bottom>
           <Text>{tweets} Tweets</Text>
           <Text>{followers.toLocaleString("en-US")} Followers</Text>
-          <Button type="button" onClick={handleBtnClick} isFollowed={isFollowed}>{isFollowed ? 'Following' : 'Follow'}</Button>
+          <Button type="button" onClick={handleBtnClick}  isFollowed={isFollowed}>{isFollowed ? 'Following' : 'Follow'}</Button>
         </Bottom>
       </Item>
 )
