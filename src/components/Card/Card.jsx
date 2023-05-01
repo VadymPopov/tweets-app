@@ -6,7 +6,7 @@ import { updateUser } from "../../redux/operations";
 import logo from '../../images/logo.svg';
 import top from '../../images/card-top.png';
 
-  const Card = ({ id, avatar, tweets, followers}) => {
+const Card =({ id, avatar, tweets, followers}) => {
   const dispatch = useDispatch();
 
   let followersNum = followers;
@@ -19,10 +19,10 @@ import top from '../../images/card-top.png';
     const user = mappedUsers.find(user => user.id === id);
     !user.followed ? followersNum-- : followersNum++;
   
-    dispatch(updateUser({followersNum, id}))
+    dispatch(updateUser({followersNum, id}));
   };
 
-const isFollowed = users ? JSON.parse(users).find(user => user.id === id).followed : null;
+  const isFollowed = users ? JSON.parse(users).find(user => user.id === id).followed : null;
 
     return (
         <Item key={id}>

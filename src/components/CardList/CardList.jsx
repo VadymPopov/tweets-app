@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { selectAllUsers, selectFilter } from "redux/selectors";
 import { useUsers } from "hooks/useUsers";
 
-const ContactList = () => {
+const ContactList =  ()=> {
     const filter = useSelector(selectFilter);
     const usersFromLocal = JSON.parse(localStorage.getItem('users'));
     const data = useUsers();
@@ -20,7 +20,6 @@ const ContactList = () => {
                 return usersFromLocal.filter(user => user.followed === true);
                 case 'all':
                 return usersFromLocal;
-        
             default:
                 return data;
         }
@@ -43,12 +42,10 @@ const ContactList = () => {
     localStorage.setItem('users', JSON.stringify(usersMapped));
 }, [usersAll]);
 
-    
-
     return (
         <List>
-              {users.map(({id, avatar, tweets, followers})=>
-            <Card key={id} avatar={avatar} tweets={tweets} followers={followers} id={id}  >
+            {users.map(({id, avatar, tweets, followers})=>
+            <Card key={id} avatar={avatar} tweets={tweets} followers={followers} id={id}>
             </Card>
             )}
         </List>

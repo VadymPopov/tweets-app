@@ -7,8 +7,7 @@ import { fetchUsers } from "../redux/operations";
 import Dropdown from "../components/Dropdown";
 import ScrollUp from "components/ScrollUp";
 import { fetchFirstUsers,fetchAllUsers } from "../redux/operations";
-
-
+import {animateScroll as scroll,} from 'react-scroll'
 
 const Tweets = () => {
   const dispatch = useDispatch();
@@ -26,10 +25,9 @@ const Tweets = () => {
 
   const handleBtnClick = ()=> {
     page++;
-    setPages(page)
-    
-    
+    setPages(page);
     dispatch(fetchUsers(page)); 
+    scroll.scrollToBottom();
   };
 
     return (
